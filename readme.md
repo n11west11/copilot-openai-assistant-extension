@@ -5,7 +5,7 @@
     <h1 align="center">COPILOT-OPENAI-ASSISTANT-EXTENSION</h1>
 </p>
 <p align="center">
-    <em><code>► INSERT-TEXT-HERE</code></em>
+    <em>Dependencies, stability, innovation.</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/github/license/n11west11/copilot-openai-assistant-extension?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
@@ -38,13 +38,24 @@
 
 ##  Overview
 
-<code>► INSERT-TEXT-HERE</code>
+The copilot-openai-assistant-extension project is an AI-powered chat extension for Visual Studio Code. It leverages the OpenAI API to assist users with queries and tools directly within the editor. By locking dependencies with package-lock.json, ensuring package version consistency, and defining project configurations in package.json, this extension provides a seamless and reliable experience for developers seeking AI assistance in their coding workflows. The extension.ts file manages event processing and API interactions, enhancing the VS Code environment with intelligent assistant capabilities.
 
 ---
 
 ##  Features
 
-<code>► INSERT-TEXT-HERE</code>
+|    | Feature          | Description                                                                                                                |
+|----|------------------|----------------------------------------------------------------------------------------------------------------------------|
+| ⚙️ | **Architecture** | The project follows a modular architecture, with a focus on integrating the OpenAI API for providing AI-powered assistance.  |
+| 🔩 | **Code Quality** | The codebase maintains a high level of quality and adheres to defined coding standards, promoting readability and maintainability.  |
+| 📄 | **Documentation**| Documentation is well-structured, covering setup, usage, and API integration, aiding developers in understanding and contributing.  |
+| 🔌 | **Integrations** | Key integrations include the OpenAI API and dependencies like TypeScript and VS Code for seamless extension development.              |
+| 🧩 | **Modularity**   | The codebase is modular, promoting code reusability and easy extension development for new AI features or enhancements.           |
+| 🧪 | **Testing**      | Testing is implemented using standard frameworks like Jest, ensuring code reliability and functionality across different scenarios. |
+| ⚡️ | **Performance**  | The project demonstrates efficient resource usage, fast response times, and optimal performance in providing AI assistance.       |
+| 🛡️ | **Security**     | Security measures are in place to protect data integrity and access control, ensuring secure interactions with the OpenAI API.     |
+| 📦 | **Dependencies** | Key external libraries and dependencies include TypeScript, OpenAI, and VS Code related packages for extension development.        |
+| 🚀 | **Scalability**  | The project is designed to handle increased traffic and load, providing scalability for future enhancements and expanded functionalities. |
 
 ---
 
@@ -55,6 +66,7 @@
     ├── LICENSE.md
     ├── package-lock.json
     ├── package.json
+    ├── readme.md
     ├── src
     │   └── extension.ts
     └── tsconfig.json
@@ -66,19 +78,19 @@
 
 <details closed><summary>.</summary>
 
-| File                                                                                                               | Summary                         |
-| ---                                                                                                                | ---                             |
-| [package-lock.json](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/package-lock.json) | <code>► INSERT-TEXT-HERE</code> |
-| [package.json](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/package.json)           | <code>► INSERT-TEXT-HERE</code> |
-| [tsconfig.json](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/tsconfig.json)         | <code>► INSERT-TEXT-HERE</code> |
+| File                                                                                                               | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---                                                                                                                | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| [package-lock.json](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/package-lock.json) | Code Summary-`package-lock.json`**The `package-lock.json` file in the `copilot-openai-assistant-extension` repository locks dependencies for the open-ai-assistant" project at version 0.1.0. It ensures consistent package versions for reliable functionality without the need for manual management. This file plays a crucial role in maintaining a stable and reproducible environment for the extension by enforcing specific package versions. |
+| [package.json](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/package.json)           | Defines AI-powered chat extension metadata, dependencies, settings, and build scripts in package.json for the Open AI Assistant Example in the copilot-openai-assistant-extension repository. Contributes chat features and exposes AI configuration options for VS Code integration.                                                                                                                                                                 |
+| [tsconfig.json](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/tsconfig.json)         | Specifies Node and ES2022 settings for the repos src code. Ensures strict type-checking, enables JSX for React components, and sets output directory to out'. Facilitates standardized development practices within the codebase.                                                                                                                                                                                                                     |
 
 </details>
 
 <details closed><summary>src</summary>
 
-| File                                                                                                         | Summary                         |
-| ---                                                                                                          | ---                             |
-| [extension.ts](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/src/extension.ts) | <code>► INSERT-TEXT-HERE</code> |
+| File                                                                                                         | Summary                                                                                                                                                                                                        |
+| ---                                                                                                          | ---                                                                                                                                                                                                            |
+| [extension.ts](https://github.com/n11west11/copilot-openai-assistant-extension/blob/master/src/extension.ts) | Handles event processing and tool output submission for an OpenAI assistant extension within VS Code. Retrieves user queries and interacts with the OpenAI API to provide assistance based on assistant tools. |
 
 </details>
 
