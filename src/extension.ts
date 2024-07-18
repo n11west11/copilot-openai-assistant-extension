@@ -156,8 +156,18 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     const thread = await openai.beta.threads.create({
-      messages: messages
+      messages: messages.slice(0, 30),
     });
+
+    for (let i = 0; i < messages.length; i++)   {
+      const message = await openai.beta.threads.messages.create(
+        thread.id,
+        {
+          role: messages[i].role,
+          content: messages[i].content,
+        }
+      );
+    }
 
     const message = await openai.beta.threads.messages.create(
       thread.id,
