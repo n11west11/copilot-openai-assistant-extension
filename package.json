@@ -1,0 +1,52 @@
+{
+  "name": "open-ai-assistant",
+  "publisher": "banjo-studios",
+  "displayName": "Open AI Assistant Example",
+  "description": "Sample chat extension, powered by AI.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "TODO"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "dependencies": {
+    "@types/vscode": "^1.91.0",
+    "openai": "^4.52.5"
+  },
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "opeanai.assistant",
+        "name": "assistant",
+        "fullName": "opeanai-assistant",
+        "description": "Can I help you test?",
+        "isSticky": true
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Assistant AI Settings",
+      "properties": {
+        "openai.apiKey": {
+          "type": "string",
+          "description": "The API key for Assistant AI."
+        },
+        "openai.assistantId": {
+          "type": "string",
+          "description": "The assistant ID for Assistnat AI."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -watch"
+  },
+  "main": "./out/extension.js"
+}
