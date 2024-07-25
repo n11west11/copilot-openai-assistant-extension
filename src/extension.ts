@@ -1,8 +1,10 @@
+import * as fs from 'fs';
 import * as vscode from 'vscode';
 import OpenAI from "openai";
 import { EventEmitter } from 'events';
 import { AssistantStreamEvent } from 'openai/src/resources/beta/index.js';
 import { Run } from 'openai/src/resources/beta/threads/index.js';
+import { getCurrentTemperature } from './tools/getCurrentTemperature';
 
 
 class EventHandler extends EventEmitter {
@@ -45,18 +47,7 @@ class EventHandler extends EventEmitter {
         if (toolCall.function.name === "getCurrentTemperature") {
           toolOutputs.push({
             tool_call_id: toolCall.id,
-            output: "57",
-          });
-        } else if (toolCall.function.name === "addMemory") {
-          const args = JSON.parse(toolCall.function.arguments);
-          const result = await addMemory(
-            args.fileName,
-            args.extension,
-            args.fileContent,
-          );
-          toolOutputs.push({
-            tool_call_id: toolCall.id,
-            output: result,
+            output: await getCurrentTemperature("San Francisco"),
           });
         } else if (toolCall.function.name === "getRainProbability") {
           toolOutputs.push({
@@ -94,11 +85,43 @@ class EventHandler extends EventEmitter {
   }
 }
 
+export function uploadFiles(files: any) {
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
+  openai.files.create({});
+}
+
+export async function processAttachments(request: vscode.ChatRequest) {
+  const attachments = [];
+  const openai = new OpenAI({
+    apiKey: vscode.workspace.getConfiguration('openai').get('apiKey') || process.env.OPENAI_API_KEY || "",
+  });
+
+  for (const reference of request.references) {
+    if (reference.value && reference.value.scheme === "file") {
+      const fileResponse = await openai.files.create({
+        file: fs.createReadStream(reference.value.path),
+        purpose: "assistants",
+      });
+      attachments.push(
+        {
+          file_id: fileResponse.id,
+          tools: [{ type: "file_search" }, { type: "code_interpreter" }],
+        }
+      );
+    }
+  }
+  return attachments;
+}
+
+
 
 export function activate(context: vscode.ExtensionContext) {
   const handler: vscode.ChatRequestHandler = async (request: vscode.ChatRequest, context: vscode.ChatContext, responseStream: vscode.ChatResponseStream, token: vscode.CancellationToken): Promise<void> => {
     const apiKey: string = vscode.workspace.getConfiguration('openai').get('apiKey') || process.env.OPENAI_API_KEY || "";
-    
+
     if (!apiKey) {
       responseStream.markdown("Please set your OpenAI API key in the extension settings, and restart the chat.");
       return;
@@ -107,6 +130,8 @@ export function activate(context: vscode.ExtensionContext) {
     const openai = new OpenAI({
       apiKey: apiKey,
     });
+
+    let attachements = await processAttachments(request);
 
     const assistant_id: string = vscode.workspace.getConfiguration('openai').get('assistantId') || "";
     if (!assistant_id) {
@@ -159,7 +184,7 @@ export function activate(context: vscode.ExtensionContext) {
       messages: messages.slice(0, 30),
     });
 
-    for (let i = 0; i < messages.length; i++)   {
+    for (let i = 0; i < messages.length; i++) {
       const message = await openai.beta.threads.messages.create(
         thread.id,
         {
@@ -174,6 +199,7 @@ export function activate(context: vscode.ExtensionContext) {
       {
         role: "user",
         content: userQuery,
+        attachments: attachements,
       }
     );
 
@@ -187,7 +213,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
     let run = null;
 
-    
+
     for await (const event of stream) {
       if (event.event === "thread.run.created") {
         run = event.data;
@@ -195,7 +221,7 @@ export function activate(context: vscode.ExtensionContext) {
       eventHandler.emit("event", event);
     }
 
-    while(run?.status !== "completed") {
+    while (run?.status !== "completed") {
       run = await openai.beta.threads.runs.retrieve(thread.id, run?.id || "");
       console.log("Waiting for run to complete %s", run.status);
       await new Promise(resolve => setTimeout(resolve, 500));

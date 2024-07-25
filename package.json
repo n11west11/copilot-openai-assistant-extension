@@ -40,6 +40,10 @@
         "openai.assistantId": {
           "type": "string",
           "description": "The assistant ID for Assistnat AI."
+        }, 
+        "openai.envPath": {
+          "type": "string",
+          "description": "The path to the .env file."
         }
       }
     }
